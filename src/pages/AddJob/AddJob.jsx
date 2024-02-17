@@ -28,6 +28,18 @@ const AddJob = () => {
     //     console.log(result);
     //   });
 
+    fetch("http://localhost:3000/postJob", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });
+
     console.log(data);
   };
   const options = [

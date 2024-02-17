@@ -16,6 +16,7 @@ const Job = ({ job }) => {
     skills,
     vacancy,
   } = job || {};
+  console.log(job);
   return (
     <div className="job col-md-12 col-sm-12 col-lg-6 ">
       <div className="row d-flex justify-content-center align-items-center single-card">
