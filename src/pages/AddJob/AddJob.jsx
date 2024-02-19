@@ -6,6 +6,7 @@ import CreatableSelect from "react-select/creatable";
 import { AuthContext } from "../../provider/AuthProvider";
 const AddJob = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const {

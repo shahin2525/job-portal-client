@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-
-import SocialLoginBtn from "../SocialLoginBtn/SocialLoginBtn";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import SocialLoginBtn from "../SocialLoginBtn/SocialLoginBtn";
+
+// import SocialLoginBtn from "../SocialLoginBtn/SocialLoginBtn";
+// import { useContext } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
 
 // import { useLocation, useHistory, useNavigate } from "react-router";
 
@@ -12,7 +14,6 @@ const Login = () => {
   // const location = useLocation();
   // const history = useHistory();
   // let navigate = useNavigate();
-  
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

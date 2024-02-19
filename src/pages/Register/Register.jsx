@@ -1,7 +1,11 @@
 /* eslint-disable no-unused-vars */
-import SocialLoginBtn from "./../SocialLoginBtn/SocialLoginBtn";
+// import SocialLoginBtn from "./../SocialLoginBtn/SocialLoginBtn";
+// import { useContext, useState } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
+
 import { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import SocialLoginBtn from "../SocialLoginBtn/SocialLoginBtn";
 
 const Register = () => {
   const { registerUser } = useContext(AuthContext);
@@ -10,6 +14,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  console.log(email, password, name);
 
   const handleRegistration = (event) => {
     event.preventDefault();

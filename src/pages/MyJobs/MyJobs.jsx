@@ -17,14 +17,23 @@ const MyJobs = () => {
   const [searchText, setSearchText] = useState("");
   const [modalShow, setModalShow] = React.useState(false);
   const [control, setControl] = useState(false);
+  const user1 = { email: "S@gmail.com" };
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/myJobs/${user?.email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setJobs(data);
+  //     });
+  // }, [user, control]);
   useEffect(() => {
-    fetch(`http://localhost:5000/myJobs/${user?.email}`)
+    fetch(`http://localhost:3000/myJobs/${user1?.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setJobs(data);
       });
-  }, [user, control]);
+  }, []);
+
   const handleSearch = () => {
     fetch(`http://localhost:5000/getJobsByText/${searchText}`)
       .then((res) => res.json())
