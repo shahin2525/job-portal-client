@@ -14,6 +14,7 @@ import UpdateJobModal from "../UpdateJobModal/UpdateJobModal";
 const MyJobs = () => {
   const { user } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
+  console.log(jobs);
   const [searchText, setSearchText] = useState("");
   const [modalShow, setModalShow] = React.useState(false);
   const [control, setControl] = useState(false);
@@ -30,6 +31,7 @@ const MyJobs = () => {
     fetch(`http://localhost:3000/myJobs/${user1?.email}`)
       .then((res) => res.json())
       .then((data) => {
+        setJobs(data);
         console.log(data);
       });
   }, []);
@@ -71,7 +73,7 @@ const MyJobs = () => {
           />{" "}
           <button onClick={handleSearch}>Search</button>
         </div>
-        <Table striped bordered hover className="container">
+        {/* <Table striped bordered hover className="container">
           <thead>
             <tr>
               <th>#</th>
@@ -109,7 +111,37 @@ const MyJobs = () => {
               </tr>
             ))}
           </tbody>
-        </Table>
+        </Table> */}
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Vacancy</th>
+              <th scope="col">Salary</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {jobs.map((job, index) => (
+              <tr>
+                <th scope="row">{index}</th>
+                <td>{job.title}</td>
+                <td>{job.category}</td>
+                <td>{job.vacancy}</td>
+                <td>{job.category}</td>
+                <td>
+                  <button>Edit</button>
+                </td>
+                <td>
+                  <button>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
