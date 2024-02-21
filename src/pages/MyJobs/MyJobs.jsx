@@ -10,6 +10,7 @@ import "./MyJobs.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import UpdateJobModal from "../UpdateJobModal/UpdateJobModal";
+// import UpdateJobModal from "../UpdateJobModal/UpdateJobModal";
 
 const MyJobs = () => {
   const { user } = useContext(AuthContext);
@@ -34,32 +35,59 @@ const MyJobs = () => {
         setJobs(data);
         console.log(data);
       });
-  }, []);
+  }, [user1?.email, control]);
+
+  // const handleSearch = () => {
+  //   fetch(`http://localhost:5000/getJobsByText/${searchText}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setJobs(data);
+  //     });
+  // };
 
   const handleSearch = () => {
-    fetch(`http://localhost:5000/getJobsByText/${searchText}`)
+    fetch(`http://localhost:3000/searchTitleAndCategory/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setJobs(data);
       });
   };
 
   const handleJobUpdate = (data) => {
     console.log(data);
-    fetch(`http://localhost:5000/updateJob/${data._id}`, {
+    fetch(`http://localhost:3000/updateJob/${data?.id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         if (result.modifiedCount > 0) {
           setControl(!control);
+          setModalShow(false);
         }
-        console.log(result);
       });
   };
+
+  // const handleJobUpdate = (data) => {
+  //   console.log(data);
+  //   fetch(`http://localhost:5000/updateJob/${data._id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       if (result.modifiedCount > 0) {
+  //         setControl(!control);
+  //       }
+  //       console.log(result);
+  //     });
+  // };
 
   return (
     <div>
@@ -67,7 +95,10 @@ const MyJobs = () => {
         <h1 className="text-center p-4 ">ALL My Jobs</h1>
         <div className="search-box p-2 text-center">
           <input
-            onChange={(e) => setSearchText(e.target.value)}
+            // onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
             type="text"
             className="p-1"
           />{" "}
@@ -127,17 +158,25 @@ const MyJobs = () => {
           <tbody>
             {jobs.map((job, index) => (
               <tr>
-                <th scope="row">{index}</th>
+                <th scope="row">{index + 1}</th>
                 <td>{job.title}</td>
                 <td>{job.category}</td>
                 <td>{job.vacancy}</td>
                 <td>{job.category}</td>
                 <td>
-                  <button>Edit</button>
+                  <Button variant="primary" onClick={() => setModalShow(true)}>
+                    Edit
+                  </Button>
                 </td>
                 <td>
                   <button>Delete</button>
                 </td>
+                <UpdateJobModal
+                  show={modalShow}
+                  job={job}
+                  handleJobUpdate={handleJobUpdate}
+                  onHide={() => setModalShow(true)}
+                />
               </tr>
             ))}
           </tbody>
